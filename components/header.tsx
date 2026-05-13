@@ -1,14 +1,17 @@
 "use client";
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
+import { Menu, X } from "lucide-react"
 
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="fixed top-4 left-0 w-full z-50 flex justify-center px-4 md:px-6 pointer-events-none">
+    <div className="fixed top-4 left-0 w-full z-50 flex flex-col px-4 md:px-6 pointer-events-none gap-4">
       <header className="w-full bg-white/80 backdrop-blur-md border border-white/20 shadow-sm rounded-full h-20 flex items-center justify-between px-6 md:px-10 pointer-events-auto transition-all">
         <div className="w-[120px]">
           <Link href="/">
@@ -47,11 +50,55 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu Toggle (Simplified) */}
-        <button className="lg:hidden text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        {/* Mobile Menu Toggle */}
+        <button 
+          type="button"
+          className="lg:hidden text-secondary p-2 -mr-2"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMobileMenuOpen((prev) => !prev);
+          }}
+          aria-label="Toggle menu"
+        >
+            {isMobileMenuOpen ? <X size={24} className="pointer-events-none" /> : <Menu size={24} className="pointer-events-none" />}
         </button>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="w-full bg-white/95 backdrop-blur-md border border-white/20 shadow-lg rounded-[2rem] p-6 flex flex-col gap-6 lg:hidden pointer-events-auto transition-all animate-in fade-in slide-in-from-top-4">
+          <nav className="flex flex-col gap-4 text-base font-semibold text-secondary text-center">
+            <Link href="/quem-somos" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors">{t('nav.quemSomos')}</Link>
+            <Link href="/#projetos" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors">{t('nav.projetos')}</Link>
+            <Link href="/#solucoes" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors">{t('nav.solucoes')}</Link>
+            <Link href="/galeria" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors">{t('nav.galeria')}</Link>
+            <Link href="/#contato" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-primary transition-colors">{t('nav.contato')}</Link>
+          </nav>
+          
+          <div className="h-px w-full bg-secondary/10"></div>
+          
+          <div className="flex font-mono text-sm font-bold gap-6 text-muted-foreground/50 justify-center">
+            <span 
+              onClick={() => { setLanguage('pt'); setIsMobileMenuOpen(false); }}
+              className={`cursor-pointer hover:text-primary transition-colors ${language === 'pt' ? 'text-secondary' : ''}`}
+            >
+              PT
+            </span>
+            <span 
+              onClick={() => { setLanguage('es'); setIsMobileMenuOpen(false); }}
+              className={`cursor-pointer hover:text-primary transition-colors ${language === 'es' ? 'text-secondary' : ''}`}
+            >
+              ES
+            </span>
+            <span 
+              onClick={() => { setLanguage('en'); setIsMobileMenuOpen(false); }}
+              className={`cursor-pointer hover:text-primary transition-colors ${language === 'en' ? 'text-secondary' : ''}`}
+            >
+              EN
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

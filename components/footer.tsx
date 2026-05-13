@@ -17,17 +17,16 @@ export function Footer() {
 
           <div className="text-xs font-mono text-white/60 space-y-2">
             <h5 className="text-white/40 mb-4 tracking-widest uppercase font-bold">{t('footer.contact')}</h5>
-            <p className="hover:text-white cursor-pointer transition-colors">suporte@agencia</p>
-            <p className="hover:text-white cursor-pointer transition-colors">contato@vantu.com</p>
+            <a href="mailto:contato@vantu.com.br" className="block hover:text-white cursor-pointer transition-colors">contato@vantu.com.br</a>
           </div>
         </div>
 
         {/* Meio: Social */}
         <div className="flex flex-col gap-4">
           <h5 className="text-white/40 text-xs font-mono tracking-widest uppercase font-bold mb-2">{t('footer.social')}</h5>
-          <a href="#" className="text-xs font-mono text-[#F5F5F5]/50 hover:text-white transition-colors">Linkedin</a>
-          <a href="#" className="text-xs font-mono text-[#F5F5F5]/50 hover:text-white transition-colors">Instagram</a>
-          <a href="#" className="text-xs font-mono text-[#F5F5F5]/50 hover:text-white transition-colors">Behance</a>
+          <a href="https://www.linkedin.com/in/otavioprado/" target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-[#F5F5F5]/50 hover:text-white transition-colors">Linkedin</a>
+          <a href="https://www.instagram.com/agencia_vantu?igsh=NTV0d3NoMnd1eXVu" target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-[#F5F5F5]/50 hover:text-white transition-colors">Instagram</a>
+          <a href="https://www.behance.net/otavioprado" target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-[#F5F5F5]/50 hover:text-white transition-colors">Behance</a>
         </div>
 
         {/* Direita: Logo GIGANTE */}
